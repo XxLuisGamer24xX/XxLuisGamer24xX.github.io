@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Proyecto</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn.glitch.global/2eb60f55-9af8-4b70-b83d-51b9aa3f78a9/icono_1.ico?v=1704906883387"
+        type="image/x-icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            border-radius: 10px;
+            border: none;
+            background-color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img-top {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        .satisfaction {
+            display: flex;
+            align-items: center;
+        }
+
+        .satisfaction .star {
+            color: #f4c150;
+            margin-right: 5px;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+
+        .pagination .page-link {
+            border-radius: 30px !important;
+            color: #fff !important;
+            background-color: #007bff !important;
+            border: none !important;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #0056b3 !important;
+        }
+
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #fffcfc;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            /* Valor alto para que esté por encima de otros elementos */
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-container {
+            padding: 20px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand {
+            color: #030303;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .sidebar-nav {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-item {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-item:hover {
+            color: #ddd;
+        }
+
+        .sidebar-icon {
+            margin-right: 10px;
+        }
+
+        .sidebar-footer {
+            color: #fff;
+        }
+
+        #caja1,
+        #caja2,
+        #caja3 {
+            margin-bottom: 40px;
+        }
+
+        .sidebar-text {
+            font-size: 1.5rem;
+            /* Tamaño de fuente más pequeño */
+        }
+
+        /* Animación de hover para imágenes de usuario */
+        .user-img {
+            transition: transform 0.3s ease;
+        }
+
+        .user-img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animación de hover para botones */
+        .btn {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #007bff;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="spinner-overlay">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
+        </div>
+    </div>
+
+    <div class="sidebar" role="cdb-sidebar" color="white">
+        <div class="sidebar-container">
+            <div class="sidebar-header">
+                <a class="sidebar-brand">Clima</a>
+                <a class="sidebar-toggler"><i class="fas fa-times"></i></a>
+            </div>
+            <div class="sidebar-nav">
+                <!-- Aquí puedes agregar los elementos de la barra lateral -->
+                <div id="contenedor">
+                    <div id="caja1">
+                        <h1 id="temperatura-valor" class="sidebar-text"></h1>
+                        <h1 id="temperatura-descripcion" class="sidebar-text"></h1>
+                    </div>
+                    <div id="caja2">
+                        <h2 id="ubicacion" class="sidebar-text"></h2>
+                        <img id="icono-animado" src="" alt="" height="128" width="128">
+                    </div>
+                    <div id="caja3">
+                        <h4>Humedad</h4>
+                        <h1 id="humedad" class="sidebar-text"></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-footer">Sidebar Footer</div>
+        </div>
+    </div>
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light pt-3 d-none d-lg-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center">
+                        <p><i class="fa fa-envelope mr-2"></i>freestyles@gmail.com</p>
+                        <p class="text-body px-3">|</p>
+                        <p><i class="fa fa-phone-alt mr-2"></i>+593 0963713769</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                        <a class="text-primary px-3" href="">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="text-primary pl-3" href="">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid position-relative nav-bar p-0">
+        <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
+                <a href="" class="navbar-brand">
+                    <img src="img/logo.png" alt="Logo " class="logo-img" style="width: 50px;">
+                </a>
+
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto py-0">
+                        <a href="index.html" class="nav-item nav-link active">Inicio
+                            <i class="bi bi-house-door-fill"></i>
+                        </a>
+
+
+                        <a href="service.html" class="nav-item nav-link">Diseña
+                            <i class="bi bi-brush-fill"></i>
+                        </a>
+
+
+                        <a href="#" class="nav-item nav-link sidebar-opener">Clima
+                            <i class="bi bi-cloud-drizzle-fill"></i>
+                        </a>
+
+
+                        <!-- Aquí está la sección de compras con el icono y el texto -->
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Compras <i class="fas fa-shopping-cart"></i>
+                                <span id="cartItemCount" class="badge badge-pill badge-primary">0</span>
+                            </a>
+                            <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+                                <table id="lista-carrito" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+
+                                <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+                                <!-- Modificado el enlace para redirigir a compras.html -->
+                                <a href="carrito.html" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
+                                    Compra</a>
+                            </div>
+                        </div>
+                        <!-- Fin de la sección de compras -->
+
+                        <!-- Aquí está la sección de Conócenos -->
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="dropdownConocenos" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Más
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownConocenos">
+
+                                <a href="about.html" class="nav-item nav-link">Conócenos
+                                    <i class="bi bi-people-fill"></i>
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a href="contact.html" class="nav-item nav-link">Contacto
+                                    <i class="bi bi-person-circle"></i>
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a href="reseña.html" class="nav-item nav-link sidebar-opener">Reseñas
+                                    <i class="bi bi-bookmark-star-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Fin de la sección de Conócenos -->
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid page-header">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+                <h3 class="display-4 text-white text-uppercase">Reseñas</h3>
+                <div class="d-inline-flex text-white">
+                    <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Inicio</a></p>
+                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                    <p class="m-0 text-uppercase">Reseñas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+
+    <!-- Agrega esta sección de carrito al final de tu HTML -->
+    <!-- Encabezado, menú, etc. -->
+    <div class="container">
+        <h1 class="text-center mt-5">Reseñas de usuarios</h1>
+
+        <div class="row" id="userList"></div>
+        <!-- Paginación -->
+        <ul class="pagination pagination-sm">
+            <li class="page-item"><a class="btn btn-primary py-md-3 px-md-5 mt-2" href="reseña.html"
+                    id="prevPage">Anterior</a></li>
+            <li class="page-item"><a class="btn btn-primary py-md-3 px-md-5 mt-2" href="reseña.html"
+                    id="nextPage">Siguiente</a></li>
+        </ul>
+    </div>
+    </div>
+
+    <!-- Scripts JS -->
+
+
+
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+        <div class="row pt-5">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="" class="navbar-brand">
+                    <img src="img/logo.png" alt="Logo " class="logo-img" style="width: 50px;">
+                </a>
+                <p>Mantén tus días organizados con nuestras agendas diseñadas con atención al detalle y estilo.
+                    Desde agendas semanales y mensuales hasta planificadores diarios, nuestras agendas
+                    están diseñadas para adaptarse a tu estilo de vida ocupado y ayudarte
+                    a alcanzar tus metas mientras te mantienes elegante y organizado.
+                </p>
+                <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Siguenos</h6>
+                <div class="d-flex justify-content-start">
+
+                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a class="btn btn-outline-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">NUESTROS SERVICIOS</h5>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Conocenos</a>
+
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Diseños</a>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Enlaces útiles</h5>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Conocenos</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Diseños</a>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Contactanos</h5>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>Santo Domingo, ECUADOR</p>
+                <p><i class="fa fa-phone-alt mr-2"></i>+593 984523454</p>
+                <p><i class="fa fa-envelope mr-2"></i>freestyles@gmail.com</p>
+                <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Boletín informativo</h6>
+                <div class="w-100">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-light" style="padding: 25px;"
+                            placeholder="Tu Email">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-3">Inscribirse</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
+        style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="row">
+            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white-50">Copyright &copy; <a href="#">freestyles</a>. All Rights Reserved.</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    <script src="js/clima.js"></script>
+    <script src="js/reseña.js"></script>
+
+</body>
+
+</html>
